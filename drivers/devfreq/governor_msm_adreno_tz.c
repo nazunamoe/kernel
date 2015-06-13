@@ -402,15 +402,16 @@ static int tz_suspend(struct devfreq *devfreq)
 	__secure_tz_reset_entry2(scm_data, sizeof(scm_data), priv->is_64);
 	suspended = true;
 
-
 	__secure_tz_entry2(TZ_RESET_ID, 0, 0);
 
 	priv->bin.total_time = 0;
 	priv->bin.busy_time = 0;
 
+
 	freq = profile->freq_table[profile->max_state - 1];
 
-	return profile->target(devfreq->dev.parent, &freq, 0);
+	return 0;
+
 }
 
 static ssize_t adreno_tz_target_show(struct kobject *kobj,
@@ -455,7 +456,6 @@ static ssize_t adreno_tz_cap_store(struct kobject *kobj,
 	tz_cap = val;
 
 	return count;
->>>>>>> b2f4817... msm_adreno_tz: fix-up tz_suspend
 }
 
 static int tz_handler(struct devfreq *devfreq, unsigned int event, void *data)
