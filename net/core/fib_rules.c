@@ -653,11 +653,8 @@ static int dump_rules(struct sk_buff *skb, struct netlink_callback *cb,
 {
 	int idx = 0;
 	struct fib_rule *rule;
-<<<<<<< HEAD
+
 	int err = 0;
-=======
-        int err = 0;
->>>>>>> 099260c... Linux 3.10.91
 
 	rcu_read_lock();
 	list_for_each_entry_rcu(rule, &ops->rules_list, list) {
@@ -666,12 +663,9 @@ static int dump_rules(struct sk_buff *skb, struct netlink_callback *cb,
 
 		err = fib_nl_fill_rule(skb, rule, NETLINK_CB(cb->skb).portid,
 				       cb->nlh->nlmsg_seq, RTM_NEWRULE,
-				       NLM_F_MULTI, ops);
-<<<<<<< HEAD
+
 		if (err)
-=======
-		if (err < 0)
->>>>>>> 099260c... Linux 3.10.91
+
 			break;
 skip:
 		idx++;
