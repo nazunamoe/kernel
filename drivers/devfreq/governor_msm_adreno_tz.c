@@ -205,8 +205,7 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 
 	*freq = stats.current_frequency;
-<<<<<<< HEAD
-=======
+
 	*flag = 0;
 
 	/*
@@ -225,7 +224,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 #endif
 
->>>>>>> f5a403c... Introduce Adreno idler for devfreq-based Adreno devices
 	priv->bin.total_time += stats.total_time;
 	priv->bin.busy_time += stats.busy_time;
 
