@@ -79,10 +79,11 @@ config DEVFREQ_GOV_MSM_ADRENO_TZ
 	  Sets the frequency using a "on-demand" algorithm.
 	  This governor is unlikely to be useful for other devices.
 
+<<<<<<< HEAD
 config MSM_BIMC_BWMON
 	tristate "MSM BIMC Bandwidth monitor hardware"
 	depends on ARCH_MSM
-
+=======
 config ADRENO_IDLER
 	tristate "MSM Adreno idler"
 	depends on DEVFREQ_GOV_MSM_ADRENO_TZ
@@ -95,6 +96,7 @@ config ADRENO_IDLER
 config DEVFREQ_GOV_MSM_CPUFREQ
 	bool "MSM CPUfreq"
 	depends on CPU_FREQ_MSM
+>>>>>>> f5a403c... Introduce Adreno idler for devfreq-based Adreno devices
 	help
 	  The BIMC Bandwidth monitor hardware allows for monitoring the
 	  traffic coming from each master port connected to the BIMC. It also
