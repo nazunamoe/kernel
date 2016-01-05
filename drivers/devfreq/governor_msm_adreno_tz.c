@@ -61,7 +61,11 @@ static DEFINE_SPINLOCK(tz_lock);
 #define TZ_V2_UPDATE_ID_64         0xA
 #define TZ_V2_INIT_ID_64           0xB
 
+#define DEVFREQ_ADRENO_TZ	"msm-adreno-tz"
 #define TAG "msm_adreno_tz: "
+
+
+
 
 struct msm_adreno_extended_profile *partner_gpu_profile;
 static void do_partner_start_event(struct work_struct *work);
@@ -402,60 +406,9 @@ static int tz_suspend(struct devfreq *devfreq)
 	__secure_tz_reset_entry2(scm_data, sizeof(scm_data), priv->is_64);
 	suspended = true;
 
-	__secure_tz_entry2(TZ_RESET_ID, 0, 0);
-
 	priv->bin.total_time = 0;
 	priv->bin.busy_time = 0;
 
-
-	freq = profile->freq_table[profile->max_state - 1];
-
-	return 0;
-
-}
-
-static ssize_t adreno_tz_target_show(struct kobject *kobj,
-						struct kobj_attribute *attr,
-						char *buf)
-{
-	return sprintf(buf, "%d\n", tz_target);
-}
-
-static ssize_t adreno_tz_target_store(struct kobject *kobj,
-					   struct kobj_attribute *attr,
-					   const char *buf, size_t count)
-{
-	unsigned int val;
-
-	sscanf(buf, "%d", &val);
-	if (val > 100 || val < tz_cap)
-		return -EINVAL;
-
-	tz_target = val;
-
-	return count;
-}
-
-static ssize_t adreno_tz_cap_show(struct kobject *kobj,
-					       struct kobj_attribute *attr,
-					       char *buf)
-{
-	return sprintf(buf, "%d\n", tz_cap);
-}
-
-static ssize_t adreno_tz_cap_store(struct kobject *kobj,
-						struct kobj_attribute *attr,
-						const char *buf, size_t count)
-{
-	unsigned int val;
-
-	sscanf(buf, "%d", &val);
-	if (val > tz_target)
-		return -EINVAL;
-
-	tz_cap = val;
-
-	return count;
 }
 
 static int tz_handler(struct devfreq *devfreq, unsigned int event, void *data)
