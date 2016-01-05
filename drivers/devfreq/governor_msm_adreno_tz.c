@@ -393,61 +393,10 @@ static int tz_suspend(struct devfreq *devfreq)
 	struct devfreq_msm_adreno_tz_data *priv = devfreq->data;
 	unsigned int scm_data[2] = {0, 0};
 	__secure_tz_reset_entry2(scm_data, sizeof(scm_data), priv->is_64);
-	suspended = true;
-
-
-	__secure_tz_entry2(TZ_RESET_ID, 0, 0);
 
 	priv->bin.total_time = 0;
 	priv->bin.busy_time = 0;
-
 	return 0;
-
-}
-
-static ssize_t adreno_tz_target_show(struct kobject *kobj,
-						struct kobj_attribute *attr,
-						char *buf)
-{
-	return sprintf(buf, "%d\n", tz_target);
-}
-
-static ssize_t adreno_tz_target_store(struct kobject *kobj,
-					   struct kobj_attribute *attr,
-					   const char *buf, size_t count)
-{
-	unsigned int val;
-
-	sscanf(buf, "%d", &val);
-	if (val > 100 || val < tz_cap)
-		return -EINVAL;
-
-	tz_target = val;
-
-	return count;
-}
-
-static ssize_t adreno_tz_cap_show(struct kobject *kobj,
-					       struct kobj_attribute *attr,
-					       char *buf)
-{
-	return sprintf(buf, "%d\n", tz_cap);
-}
-
-static ssize_t adreno_tz_cap_store(struct kobject *kobj,
-						struct kobj_attribute *attr,
-						const char *buf, size_t count)
-{
-	unsigned int val;
-
-	sscanf(buf, "%d", &val);
-	if (val > tz_target)
-		return -EINVAL;
-
-	tz_cap = val;
-
-	return count;
->>>>>>> b2f4817... msm_adreno_tz: fix-up tz_suspend
 }
 
 static int tz_handler(struct devfreq *devfreq, unsigned int event, void *data)
